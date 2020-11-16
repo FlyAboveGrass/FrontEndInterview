@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>test</title>
+    <script type="text/javascript">
+        // 同名函数，后定义的函数覆盖前面的函数
+        // var x = 300;
+        // function add(x){
+        //     return x+1;
+        // }
+        // console.log(add(x));
+
+        // function add(){
+        //     return x+3;
+        // }
+        // console.log(add(x));
+
+        // var a = 100;
+        // function fn(){
+        //     console.log('first fn', a);
+        //     var a = 10;
+        //     console.log('second fn', a);
+        // }
+        // fn();
+        // console.log('third a', a);
+        // var a;
+        // console.log('var a', a);
+        // var a = 300;
+        // console.log(a);
+        // 预计输出 undefined， 10， 100， undefined， 300
+        // 预计输出 undefined， 10， 100，   100 ，    300
+        // 变量提升，var定义变量都会提升到最上面，但是直到赋值时才有值，不然是undefined
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>qq</title>
+    <script type="text/javascript">
+        function ListNode(x){
+            this.val = x;
+            this.next = null;
+        }
+        function ReverseList(pHead)
+        {
+            if(pHead === null){
+                return null;
+            }
+            if(pHead.next === null){
+                return pHead;
+            }
+            let head = pHead.next;
+            let tmp = null;
+            while(head!==null){
+                pHead.next = null;
+                tmp = head.next;
+                head.next = pHead;
+                pHead = head;
+                head = tmp;
+            }
+            return phead;
+        }
+
+        let a = []
+        for(var i = 0 ; i < 10; i++){
+            a.push(new ListNode(i))
+        }
+        console.log('a', a);
+        console.log('reverse', ReverseList(a[0]));
+    </script>
+</head>
+<body>
+
+</body>
+</html>

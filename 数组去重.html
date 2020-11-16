@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        function log(a){
+            console.log(a)
+        }
+        Array.prototype.unique = function(arr){
+            if(!Array.isArray(arr))
+                return 
+
+            let result = [],flag = true
+            for(let i = 0;i<arr.length;i++,flag = true) {
+                for(let j =0;j<i;j++){
+                    if(arr[i] === result[j])
+                        flag = false
+                }
+                flag?result.push(arr[i]):''
+            }
+            return result
+        }
+        //console.log(Array.prototype.unique([1,2,2,2,3,4]))
+
+        function jiecheng(index) {
+            if(typeof index !== 'number' || index%1 !== 0){
+                console.log('参数错误')
+                return 
+            }
+            if(index === 1)
+                return 1
+            return index * arguments.callee(--index)
+        }
+        //console.log(jiecheng(1.2))
+
+        function combo(str){
+            let result = str.split('-')
+            let length = result.length
+            if(length < 1){
+                return str
+            }
+            for(let i = 1;i<result.length;i++){
+                result[i] = result[i].charAt(0).toUpperCase() + result[i].substring(1)
+            }
+            return result.join('')
+        }
+        //console.log(combo('get-element-by-id'))
+
+        String.prototype.urlQuery = function(){
+            if(this.split('?').length<2)
+                return this
+            let url = this.split('?')[1].split('&')
+            let obj = {},arr = []
+            for(let i = 0;i<url.length;i++){
+                let param = url[i].split('=')
+                arr.push({"key":param[0],"value":param[1]})
+            }
+            obj = {"url":this.split('?')[0], "params":arr}
+            return obj
+        }
+        //console.log(JSON.stringify('https://cn.bing.com/search?q=%E6%B5%A9%E9%B2%B8%E7%A7%91%E6%8A%80%E9%9D%A2%E8%AF%95&PC=U316&FORM=CHROMN'.urlQuery()))
+
+        // setTimeout(function(){
+        //     for(var i = 0;i<10;i++){
+        //         (function(i){
+        //             console.log(i)
+        //         })(i)
+        //     }
+        // },1000)
+
+        String.prototype.trim = function(){
+            return this.replace(/^\s+/, '').replace(/\s+$/,'')
+        }
+        //console.log('  nihao '.trim())
+        
+        // function debounce(func, wait) {
+        //     if(!timeout){
+        //         var timeout = null
+        //         console.log(timeout+'==')
+        //     }
+        //     log(timeout)
+        //     return function () {
+        //         let context = this;
+        //         let args = arguments;
+
+        //         if (timeout) {
+        //             clearTimeout(timeout);
+        //             console.log('clear')
+        //         }
+                
+        //         timeout = setTimeout(function(){
+        //             func.apply(context, args)
+        //         }, wait);
+        //     }
+        // }
+
+        
+        
+        
+    </script>
+</head>
+<body>
+    <ul id="ul">
+        <li>1</li>
+        <li>1</li>
+        <li>1</li>
+    </ul>
+    <input type="button" onclick="click()" id="button">click</input>
+</body>
+<script>
+    // 节流和防抖
+    var k = debounce(function(){
+        log('1')
+    },1000)
+    var k2 = throttle(function(){
+        log('throttle')
+    },1000)
+    document.getElementById('button').onclick = function(){       
+        // k2()
+    }
+    function debounce(fun, delay){
+        var timeout = null
+        return function(){
+            if(timeout !== null){
+                clearTimeout(timeout)
+            }
+            timeout = setTimeout(fun,delay)
+        }
+    }
+    function throttle(func, wait) {
+        let previous = 0;
+        return function() {
+            let now = Date.now();
+            log(now+'--'+previous)
+            if (now - previous > wait) {
+                func()
+                previous = now;
+            }
+        }
+    }
+    //事件委托
+    document.getElementById('ul').onclick = function(e){
+        // 伪数组转化
+        var a=Array.prototype.slice.call(e.currentTarget.children)
+        var b = e.currentTarget.children
+        for(let i = 0;i<a.length;i++){
+            if(a[i] === e.target){
+                //console.log(a[i])
+                //console.log(i)
+            }            
+        }
+    }
+
+    var d = new Date()
+    // console.log(d.getFullYear()+'-'+d.getMonth()+'-'+d.getDay())
+
+    function random(a,b){
+        //log(Math.floor(Math.random()*(b+1))+a)
+    }
+
+    for(let i =0;i<1000;i++){
+        // log((Math.floor(Math.random()*(100+1))+0)==0 ? 0:1)
+    }
+
+    var arr = [1,2,3,4,5]
+    // console.log(arr.slice(0,2))
+    // console.log(arr.splice(0,2,...[4,5,6,7,8,9])?arr:'error')
+    
+
+    var xhr = null
+    log(window)
+    if(window.XMLHttpRequest){
+        xhr = new XMLHttpRequest()
+    }else{
+        xhr = new ActiveXObject("Microsoft.XMLHTTP")
+    }
+    xhr.open('get','your route',true)
+    xhr.onreadystatechange = function(){
+        if (xhr.readyState == 400 && xhr.status==200)
+        {
+            //log(xhr.responseText)
+        }
+    }
+    xhr.send()
+
+    var day = new Date()
+    //log('000'+day.getDate())
+
+
+</script>
+</html>
