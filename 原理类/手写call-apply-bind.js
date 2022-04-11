@@ -28,6 +28,15 @@ Function.prototype.myApply = function(context){
     return result
 }
 
+Function.prototype.myApply2 = function(context = window, params = []){
+  if(typeof this !== 'function') throw new Error('not a function')
+
+  context.fn = this
+  const result =  context.fn(...params)
+  delete context.fn
+  return result
+}
+
 Function.prototype.myBind = function(context){
     if(typeof this !== 'function'){
         console.log('type error')
@@ -61,5 +70,6 @@ let y ={
 // y.c.myCall(x,1,2,3,5)
 // log('apply绑定')
 // y.c.myApply(x,[1,2,3,4,9])
+y.c.myApply2(x)
 // log('bind绑定')
 // y.c.myBind(x,1,2,3)(4,5,6)
