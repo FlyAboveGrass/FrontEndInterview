@@ -22,6 +22,7 @@ function bubbleSort(array) {
 }
 
 // 插入排序
+// 将要排序的数组分成两部分，每次从后面的部分取出索引最小的元素插入到前一部分的适当位置
 // function insertSort(array) {
 //   if(!array){
 //     throw new Error('参数必须是数组')
@@ -65,6 +66,7 @@ function insertSort(array) {
 }
 
 // 选择排序
+// 将要排序的数组分成两部分，一部分是从大到小已经排好序的，一部分是无序的，从无序的部分取出最小的放到已经排序的最后面。 
 function selectSrot(array) {
     let arr = array
     for(let i = 0; i < arr.length; i++) {
