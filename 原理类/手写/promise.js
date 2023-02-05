@@ -217,7 +217,7 @@ class Promise2 {
 // console.log(2)
 
 
-class Promise {
+class Promise3 {
     constructor(executor) {
         this.status = PromiseStatus.PENDING
         this.value = null
@@ -259,7 +259,7 @@ class Promise {
         const onFulfilledFn = typeof onFulfilled === 'function' ? onFulfilled : v => v
         const onRejectedFn = typeof onRejected === 'function' ? onRejected : e => { throw e }
 
-        const promise = new Promise2((resolve, reject) => {
+        const promise = new Promise3((resolve, reject) => {
             if (this.status === PromiseStatus.RESOLVED) {
                 setTimeout(() => {
                     try {
@@ -320,6 +320,50 @@ class Promise {
         return promise
     }
 }
+
+
+
+const all = (promises) => {
+    let resolvedCount = 0
+    const results = []
+
+    return new Promise3((resolve, reject) => {
+        const resolveSinglePromise = (i, pResult) => {
+            results[i] = pResult
+            resolvedCount++
+
+            if (resolvedCount === promises.length) {
+                resolve(results)
+            }
+        }
+
+        for (let i = 0; i < promises.length; i++) {
+            let p = promises[i]
+
+            if (p && typeof p.then === 'function') {
+                p.then((res) => {
+                    console.log("🚀 ~ file: promise.js:345 ~ p.then ~ res", res)
+                    resolveSinglePromise(i, res)
+                }, reject)
+            } else {
+                resolveSinglePromise(i, p)
+            }
+        }
+    })
+}
+
+Promise3.all = all
+
+
+const pAll1 = new Promise3((resolve) => {
+    resolve(1)
+})
+const pAll2 = new Promise3((resolve) => {
+    resolve(2)
+})
+Promise3.all([pAll1, pAll2]).then(res => {
+    console.log("🚀 ~ file: promise.js:364 ~ Promise.all ~ res", res)
+})
 
 
 // 下面的代码用 promises-aplus-tests 对 promise 进行测试
